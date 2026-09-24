@@ -1,14 +1,677 @@
-nst $ = id => document.getElementById(id);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Griffin | Systems &amp; Security</title>
+<meta name="description" content="Cybersecurity student who loves Linux, networking and cryptography. Projects, CTF writeups and notes by Griffin.">
+<meta name="theme-color" content="#070b12">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Griffin | Systems &amp; Security">
+<meta property="og:description" content="Cybersecurity student who loves Linux, networking and cryptography. Projects, CTF writeups and notes.">
+<meta property="og:url" content="https://i7griffin.github.io/">
+<meta property="og:image" content="https://i7griffin.github.io/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://i7griffin.github.io/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Griffin", "alternateName": "Maria Griffin Raj I", "url": "https://i7griffin.github.io/", "jobTitle": "Cybersecurity student", "affiliation": {"@type": "CollegeOrUniversity", "name": "Shiv Nadar University Chennai"}, "knowsAbout": ["Cybersecurity", "Linux", "Networking", "Cryptography", "Python", "C++"], "sameAs": ["https://github.com/i7griffin", "https://www.linkedin.com/in/maria-griffin-raj-i-4ab969330/"]}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b12'/%3E%3Crect x='3' y='3' width='58' height='58' fill='none' stroke='%2333e0f0' stroke-width='3'/%3E%3Ctext x='32' y='47' font-size='38' text-anchor='middle' fill='%2333e0f0' font-family='monospace' font-weight='bold'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070b12;--panel:#0d1420;--ink:#d3e2f0;--mute:#7b8ea6;--line:#1c2a3d;--cyan:#33e0f0;--red:#ff4d7d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 .98rem/1.7 "JetBrains Mono",ui-monospace,monospace;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:48px 48px;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 30%,transparent 0,var(--bg) 85%);pointer-events:none;z-index:0}
+body::after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(transparent 0 2px,rgba(0,0,0,.1) 2px 3px);pointer-events:none;z-index:9}
+h1,h2,h3{font-family:"Chakra Petch",sans-serif;margin:0;line-height:1.1}
+a{color:var(--cyan)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+header{position:sticky;top:0;z-index:5;background:rgba(7,11,18,.9);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.brand{color:var(--cyan);text-decoration:none;font-weight:500}
+nav{display:flex;gap:18px;font-size:.88rem}
+nav a{color:var(--mute);text-decoration:none}
+nav a:hover{color:var(--ink)}
+#acc{font-size:.8rem;border:1px solid var(--line);padding:2px 10px;color:var(--mute);white-space:nowrap}
+#acc b{color:var(--cyan);font-weight:500}
+#acc.root b{color:var(--red)}
+.hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;padding:56px 0}
+.line{color:var(--mute);min-height:1.7em}
+.line i{color:var(--cyan);font-style:normal}
+.hero h1{font-size:clamp(3.2rem,12vw,7.5rem);font-weight:700;letter-spacing:.02em;margin:6px 0 10px;color:var(--ink);text-transform:uppercase;position:relative;display:inline-block}
+.hero h1:hover{animation:glitch .35s steps(2) 2;text-shadow:3px 0 var(--red),-3px 0 var(--cyan)}
+@keyframes glitch{50%{transform:translateX(3px)}}
+.hero .tag{color:var(--ink);font-size:1.05rem;max-width:56ch;margin:6px 0 30px;min-height:3.4em}
+.cursor{display:inline-block;width:.6em;height:1.1em;background:var(--cyan);vertical-align:-.2em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:10px 20px;border:1px solid var(--cyan);color:var(--cyan);text-decoration:none;background:transparent;font:inherit;cursor:pointer}
+.btn:hover,.btn.main{background:var(--cyan);color:var(--bg)}
+section{padding:68px 0;border-top:1px solid var(--line)}
+.cmd{color:var(--mute);margin-bottom:26px}
+.cmd i{color:var(--cyan);font-style:normal}
+section h2{font-size:clamp(1.8rem,5vw,2.4rem);margin-bottom:26px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);text-decoration:none;color:var(--ink);display:flex;flex-direction:column}
+.card:hover{border-color:var(--cyan)}
+.card .bar{display:flex;justify-content:space-between;gap:8px;padding:8px 14px;border-bottom:1px solid var(--line);font-size:.76rem;color:var(--mute)}
+.card .bar em{font-style:normal;color:var(--cyan)}
+.card .body{padding:18px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card h3{font-size:1.3rem}
+.card p{margin:0;color:var(--mute);font-size:.88rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:8px;font-size:.76rem;color:var(--cyan)}
+.log{border-left:1px solid var(--line);margin-left:6px}
+.entry{padding:0 0 30px 26px;position:relative}
+.entry::before{content:"";position:absolute;left:-5px;top:.55em;width:9px;height:9px;background:var(--bg);border:1px solid var(--cyan)}
+.entry time{color:var(--mute);font-size:.8rem}
+.entry h3{font-size:1.2rem;margin:2px 0}
+.entry .org{color:var(--cyan)}
+.entry p{margin:8px 0 0;color:var(--mute);font-size:.9rem;max-width:66ch}
+.about{display:grid;gap:32px;grid-template-columns:1.2fr 1fr}
+.about p{margin:0 0 14px;max-width:58ch}
+.skill{margin-bottom:16px}
+.skill h3{font:400 .85rem "JetBrains Mono",monospace;color:var(--mute);margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{border:1px solid var(--line);background:var(--panel);padding:1px 10px;font-size:.8rem}
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:120px 1fr auto;gap:2px 20px;padding:14px 0;border-bottom:1px solid var(--line);align-items:baseline;text-decoration:none;color:var(--ink)}
+a.row:hover .t{color:var(--cyan)}
+.row .d{color:var(--mute);font-size:.8rem}
+.row .r{color:var(--cyan);font-size:.85rem;text-align:right}
+.row .x{color:var(--mute);font-size:.85rem;grid-column:2/4}
+.sub{font-size:1.15rem;margin:38px 0 12px}
+.term{background:var(--panel);border:1px solid var(--line);padding:16px;max-width:760px;font-size:.88rem;cursor:text}
+#tout{max-height:280px;overflow-y:auto;margin-bottom:8px}
+#tout div{white-space:pre-wrap;word-break:break-word}
+#tout .cm{color:var(--cyan)}
+#tout .er{color:var(--red)}
+.prompt{display:flex;gap:8px;align-items:center}
+.prompt label{display:block;color:var(--cyan);white-space:nowrap;font-size:.88rem}
+.prompt input{flex:1;min-width:0;border:0;background:transparent;padding:0}
+.prompt input:focus{outline:0}
+#detail{padding-top:40px;padding-bottom:72px;min-height:80vh}
+.dpage h1{font-size:clamp(2rem,7vw,3.6rem);margin:18px 0 14px}
+.dpage p{max-width:66ch;color:var(--mute);margin:0 0 12px}
+.dpage p.lead{color:var(--ink);font-size:1.05rem}
+.dpage .btn.back{font-size:.85rem;padding:6px 14px}
+.dpage figure{margin:22px 0;border:1px solid var(--line);background:var(--panel)}
+.dpage img{display:block;width:100%;height:auto}
+.dpage figcaption{padding:8px 14px;color:var(--mute);font-size:.8rem;border-top:1px solid var(--line)}
+.ph{padding:56px 16px;text-align:center;color:var(--mute);border-bottom:1px dashed var(--line);font-size:.85rem}
+#resume{display:none}
+@media print{
+ body{background:#fff!important;color:#000}
+ body::before,body::after{display:none}
+ body>*:not(#resume){display:none!important}
+ #resume{display:block;font:10.5pt/1.45 Arial,sans-serif;color:#000}
+ #resume h1{font:700 24pt Arial,sans-serif;margin:0}
+ #resume h2{font:700 11pt Arial,sans-serif;border-bottom:1px solid #000;margin:14px 0 6px;text-transform:uppercase}
+ #resume p{margin:0 0 3px}
+}
+#rain{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.3;pointer-events:none;display:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--panel);border:1px solid var(--cyan);color:var(--cyan);padding:10px 18px;z-index:20;font-size:.85rem;max-width:92vw}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:26px}
+.stat{background:var(--panel);border:1px solid var(--line);padding:14px 16px}
+.stat b{display:block;font:700 1.9rem "Chakra Petch",sans-serif;color:var(--cyan);line-height:1.1}
+.stat span{font-size:.78rem;color:var(--mute)}
+.heatwrap{overflow-x:auto;padding-bottom:6px}
+.heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,14px);grid-auto-columns:14px;gap:3px;width:max-content}
+.cell{background:var(--panel);border:1px solid var(--line)}
+.cell.l1{background:color-mix(in srgb,var(--cyan) 30%,var(--panel));border-color:transparent}
+.cell.l2{background:color-mix(in srgb,var(--cyan) 55%,var(--panel));border-color:transparent}
+.cell.l3{background:color-mix(in srgb,var(--cyan) 78%,var(--panel));border-color:transparent}
+.cell.l4{background:var(--cyan);border-color:transparent}
+.note{color:var(--mute);font-size:.8rem;margin:10px 0 0}
+.two{display:grid;gap:32px;grid-template-columns:1fr 1.3fr;margin-top:8px}
+.lang{display:grid;grid-template-columns:100px 1fr 40px;gap:10px;align-items:center;font-size:.85rem;margin-bottom:8px}
+.lang .bar2{height:8px;background:var(--panel);border:1px solid var(--line)}
+.lang .bar2 i{display:block;height:100%;background:var(--cyan)}
+.lang b{font-weight:400;color:var(--mute);text-align:right}
+@media(max-width:720px){.two{grid-template-columns:1fr}}
+.code{margin:24px 0}
+.cbar{display:flex;gap:10px;align-items:center;padding:8px 14px;border-bottom:1px solid var(--line);font-size:.78rem;color:var(--mute)}
+.cbar span{margin-right:auto;color:var(--ink)}
+.cbar em{font-style:normal;border:1px solid var(--red);color:var(--red);padding:0 8px}
+.cbar button{font:inherit;color:var(--cyan);background:none;border:1px solid var(--line);padding:0 10px;cursor:pointer}
+.code pre{margin:0;padding:16px;overflow-x:auto;font-size:.82rem;line-height:1.6;tab-size:4}
+.code pre code{font:inherit}
+.tc{color:var(--mute);font-style:italic}.ts{color:#e6c07b}.tn{color:#f0a070}.tk{color:var(--cyan)}.tf{color:#c3a6ff}.tp{color:#ff8bb1}
+.code .why{padding:14px 16px;border-top:1px solid var(--line);font-size:.86rem;color:var(--mute)}
+.code .why b{color:var(--ink);font-weight:500}
+.code .why ul{margin:6px 0 0;padding-left:18px}
+html{color-scheme:dark}
+::selection{background:var(--cyan);color:var(--bg)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--cyan);color:var(--bg);padding:8px 14px;z-index:30;text-decoration:none}
+.skip:focus{top:8px}
+.row .x.wide{grid-column:1/-1}
+.lede{color:var(--mute);margin:0 0 26px}
+.more{margin-top:26px}
+.dpage .dcmd{margin:22px 0 0}
+.dpage .chips+.lead{margin-top:18px}
+.dpage .dfoot{margin-top:28px}
+@media(hover:none){body{background-attachment:scroll}}
+form{display:grid;gap:14px;max-width:560px}
+label{display:grid;gap:4px;font-size:.82rem;color:var(--mute)}
+input,textarea{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:9px 12px;border-radius:0}
+input:focus,textarea:focus{border-color:var(--cyan);outline:0}
+textarea{min-height:110px;resize:vertical}
+.links{display:flex;gap:22px;margin-top:30px;flex-wrap:wrap}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.sw{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);padding:0;margin-left:8px;cursor:pointer;vertical-align:middle}
+.sw[aria-pressed=true]{border-color:var(--ink)}
+footer{padding:28px 0;color:var(--mute);font-size:.8rem;border-top:1px solid var(--line)}
+@media(max-width:720px){.about{grid-template-columns:1fr}.row{grid-template-columns:1fr}.row .x{grid-column:auto}.row .r{text-align:left}}
+@media(max-width:720px){input,textarea{font-size:16px}}
+@media(max-width:600px){.brand,#acc{display:none}nav{gap:14px;font-size:.8rem;overflow-x:auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.cursor{animation:none}.hero h1:hover{animation:none}}
+</style>
+</head>
+<body>
+<!-- Curious? The terminal is hiding a file. Try: ls -a -->
+<canvas id="rain" aria-hidden="true"></canvas>
+<a class="skip" href="#home">Skip to content</a>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#home">griffin@sec:~$</a>
+    <nav aria-label="Main">
+      <a href="#about">about</a>
+      <a href="#projects">projects</a>
+      <a href="#ctf">ctf</a>
+      <a href="#experience">experience</a>
+      <a href="#activity">activity</a>
+      <a href="#notes">notes</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <div id="acc" title="Explore the page to raise your access level">access: <b id="lvl">guest</b></div>
+  </div>
+</header>
+
+<main id="home" class="wrap" aria-label="Portfolio">
+  <div class="hero">
+    <div class="line"><i>$</i> whoami</div>
+    <h1><span class="sr" id="nameSr">Griffin</span><span id="name" aria-hidden="true">&nbsp;</span></h1>
+    <div class="line"><i>$</i> cat role.txt</div>
+    <div class="tag"><span class="sr" id="taglineSr"></span><span id="tagline" aria-hidden="true"></span><span class="cursor" aria-hidden="true"></span></div>
+    <noscript><p>Griffin, cybersecurity student. This site needs JavaScript to show its content. GitHub: <a href="https://github.com/i7griffin">github.com/i7griffin</a></p></noscript>
+    <div class="btns">
+      <a class="btn main" href="#projects">./view_work</a>
+      <a class="btn" href="#terminal">./terminal</a>
+      <button class="btn" id="cv" type="button">./download_cv</button>
+      <a class="btn" href="#contact">./contact</a>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="cmd"><i>$</i> cat ~/about.md &amp;&amp; ./list_skills</div>
+    <h2>About me</h2>
+    <div class="about">
+      <div id="bio"></div>
+      <div id="skills"></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="cmd"><i>$</i> ls ~/projects</div>
+    <h2>Projects</h2>
+    <div class="grid" id="projectGrid"></div>
+    <h3 class="sub">More on GitHub</h3>
+    <div class="rows" id="repoList"><div class="row"><span class="x wide">Loading repositories...</span></div></div>
+  </section>
+
+  <section id="ctf">
+    <div class="cmd"><i>$</i> ls ~/ctf</div>
+    <h2>CTF</h2>
+    <h3 class="sub">Achievements &amp; practice</h3>
+    <div class="rows" id="ctfWins"></div>
+    <h3 class="sub">Writeups</h3>
+    <div class="grid" id="ctfGrid"></div>
+  </section>
+
+  <section id="experience">
+    <div class="cmd"><i>$</i> cat ~/experience.log</div>
+    <h2>Experience</h2>
+    <div class="log" id="jobList"></div>
+    <h3 class="sub">Education</h3>
+    <div class="rows" id="eduList"></div>
+    <h3 class="sub">Certifications</h3>
+    <div class="rows" id="certList"></div>
+  </section>
+
+  <section id="activity">
+    <div class="cmd"><i>$</i> ./github_stats</div>
+    <h2>GitHub activity</h2>
+    <div class="stats" id="ghStats"><div class="stat"><span>Loading GitHub activity...</span></div></div>
+    <div class="heatwrap"><div class="heat" id="heat" role="img" aria-label="Public GitHub activity over the last 13 weeks"></div></div>
+    <p class="note" id="actNote"></p>
+    <div class="two">
+      <div><h3 class="sub">Top languages</h3><div id="langs"></div><p class="note">By repository, using each repo's main language.</p></div>
+      <div><h3 class="sub">Recent activity</h3><div class="rows" id="recent"></div></div>
+    </div>
+    <p class="more"><a id="ghLink" href="#" target="_blank" rel="noopener">View full profile on GitHub &rarr;</a></p>
+  </section>
+
+  <section id="notes">
+    <div class="cmd"><i>$</i> ls ~/notes</div>
+    <h2>Notes</h2>
+    <div class="rows" id="noteList"></div>
+  </section>
+
+  <section id="terminal">
+    <div class="cmd"><i>$</i> ./terminal</div>
+    <h2>Terminal</h2>
+    <div class="term" id="termbox">
+      <div id="tout" role="log" aria-live="polite"></div>
+      <div class="prompt"><label for="tin">visitor@griffin:~$</label><input id="tin" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="cmd"><i>$</i> ./open_channel</div>
+    <h2>Get in touch</h2>
+    <p class="lede">Got an idea, a bug, or a CTF challenge? Send a message.</p>
+    <form>
+      <label>name *<input name="name" type="text" autocomplete="name" required></label>
+      <label>email *<input name="email" type="email" autocomplete="email" required></label>
+      <label>message *<textarea name="message" required></textarea></label>
+      <button class="btn" type="submit">send_message</button>
+    </form>
+    <div class="links" id="links"></div>
+  </section>
+</main>
+
+<main id="detail" class="wrap" aria-label="Project details" hidden></main>
+<div id="resume"></div>
+
+<footer><div class="wrap"><span>&copy; <span id="yr"></span> Griffin. Built with plain HTML. No cookies. <a href="qr.png" target="_blank" rel="noopener">QR code</a></span><span>theme <span id="swatches"></span></span></div></footer>
+
+<script>
+/* ===== EDIT ONLY THIS BLOCK ===== */
+const SITE = {
+  name: "Griffin",
+  github: "i7griffin",
+  showSamples: false, /* code excerpts marked sample:true are hidden until you set this to true (or replace them with your own code and remove sample:true) */
+  goatcounter: "", /* optional: your GoatCounter code from goatcounter.com (free, no cookies), e.g. "griffin" */
+  email: "mariagriffinraj.i@gmail.com",
+  formAction: "", /* optional: paste a Formspree URL to receive messages by form instead of your email app */
+  resumeFile: "", /* optional: put "resume.pdf" here after uploading your PDF; otherwise the button prints a resume built from this data */
+  tagline: "Cybersecurity student who loves Linux, networking and cryptography. I build Python security tools and write up what I learn.",
+  about: {
+    bio: ["I'm a cybersecurity student passionate about Linux, networking and cryptography, and I hold the Google Cybersecurity Certificate.",
+          "I learn by building: a Python SIEM log monitor, a multi-client chat server, and step-by-step writeups from wargames."],
+    skills: [
+      {name: "Languages", items: ["Python", "C", "C++", "Bash", "SQL", "SQLite"]},
+      {name: "Systems", items: ["Linux", "Ubuntu", "Kali Linux", "Git", "GitHub Actions"]},
+      {name: "Security", items: ["Cryptography", "SIEM", "Wireshark", "Nmap", "VMware", "VirtualBox"]},
+      {name: "Spoken languages", items: ["English", "Tamil"]}
+    ]
+  },
+  projects: [
+    {title: "mini-siem", url: "https://github.com/i7griffin/mini-siem", status: "active",
+     text: "SIEM-style SSH log monitor in Python. It follows the system journal live, flags brute-force logins and logins that follow them, and shows alerts in a Flask dashboard.",
+     tags: ["Python", "Flask", "SIEM", "Log analysis"],
+     notes: [
+       {h: "What it does", t: "Monitors SSH login activity in real time on Linux. It follows the system journal, picks out failed and accepted password logins, and raises an alert when the pattern looks like an attack."},
+       {h: "Detection rules", t: "BRUTE_FORCE: repeated failed logins from one IP within a time window (currently 2 within 60 seconds, set low so it is easy to trigger while testing). LOGIN_SUCCESS: every accepted login is reported. COMPROMISED_ACCOUNT: an accepted login from an IP that was just failing, which is the most serious case."},
+       {h: "How it's built", t: "main.py streams the journal and passes each line through parser.py, detector.py and reporter.py. Alerts are saved with timestamps in alerts.json, and a small Flask app (app.py) serves a dashboard plus an /api/alerts JSON endpoint."}
+     ],
+     images: [{src: "images/mini-siem-dashboard.png", caption: "The web dashboard showing detected alerts"},
+              {src: "images/mini-siem-alerts.png", caption: "Sample alerts.json output"}],
+     code: [
+       {file: "detector.py (shortened)", lang: "py",
+        snippet: `THRESHOLD = 2
+WINDOW = 60
+
+def detect_event(event):
+    alerts = []
+    ip = event["ip"]
+    now = time.time()
+
+    # FAILED LOGIN
+    if event["event"] == "failed":
+        failed_attempts[ip].append(now)
+
+        # keep only recent attempts
+        failed_attempts[ip] = [
+            t for t in failed_attempts[ip]
+            if now - t <= WINDOW
+        ]
+
+        if len(failed_attempts[ip]) >= THRESHOLD:
+            alerts.append({
+                "type": "BRUTE_FORCE",
+                "ip": ip,
+                "attempts": len(failed_attempts[ip]),
+                "message": f"Brute force detected from {ip}"
+            })
+
+    # SUCCESS LOGIN
+    elif event["event"] == "accepted":
+        ...
+        # correlation: success after brute force
+        if len(failed_attempts[ip]) >= THRESHOLD:
+            alerts.append({
+                "type": "COMPROMISED_ACCOUNT",
+                ...
+            })
+
+        # reset after success
+        failed_attempts[ip] = []
+
+    return alerts`,
+        why: ["Each IP has its own list of failure times, and anything older than WINDOW (60 seconds) is dropped. That makes it a sliding window: two failures within a minute raise an alert, two failures spread over a day do not.",
+              "A successful login is checked against that same list. An accepted login right after a burst of failures raises COMPROMISED_ACCOUNT, which says more than either event alone.",
+              "The list is reset after a successful login, so the same old failures cannot trigger a second compromise alert."]},
+       {file: "main.py (shortened)", lang: "py",
+        snippet: `def stream_ssh_logs():
+    process = subprocess.Popen(
+        ["journalctl", "-f", "-n", "0"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        bufsize=1
+    )
+    for line in process.stdout:
+        yield line
+
+def main():
+    for line in stream_ssh_logs():
+        event = parse_line(line)
+        if event:
+            alerts = detect_event(event)
+            if alerts:
+                report_alerts(alerts)`,
+        why: ["journalctl -f -n 0 follows the system journal live and skips old history, so the tool reacts only to new events.",
+              "stream_ssh_logs is a generator (it uses yield), so each line is handled the moment it arrives without loading a whole log into memory.",
+              "The work is split into three small stages, parse_line, detect_event and report_alerts, each in its own file, so any one of them can be changed or tested on its own."]}
+     ]},
+    {title: "Multi-Client Chat Server", url: "https://github.com/i7griffin/Multi-Client-Chat-Server-", status: "active",
+     text: "Multi-client chat server and client for Linux in C++, built two ways: one thread per client, and a single-threaded epoll server. Uses a small length-prefixed message format.",
+     tags: ["C++", "Linux", "TCP sockets", "epoll", "Threads"],
+     notes: [
+       {h: "What it does", t: "Users connect over TCP, register a username, and every chat message is broadcast to the other connected users."},
+       {h: "A small binary protocol", t: "TCP delivers a stream of bytes, not separate messages. Each message here starts with a type byte (username or chat) and a 4-byte length, followed by the text, so the receiver knows where a message ends even when it arrives in pieces."},
+       {h: "Two server designs", t: "server.cpp gives every client its own thread and protects the shared client list with a mutex. server_epoll.cpp handles all clients from a single thread using epoll, so it needs no locks. The repo also holds my notes comparing thread-per-client, process-per-client, thread pools and epoll."}
+     ],
+     images: [{src: "images/chat-server-demo.png", caption: "The server and two clients running in terminals"}],
+     code: [
+       {file: "server_epoll.cpp (main loop, shortened)", lang: "cpp",
+        snippet: `epoll_event events[MAX_EVENTS];
+
+while (!shutdown_flag) {
+    // epoll_wait() blocks until one or more registered fds
+    // become ready, or until a signal interrupts it.
+    int num_ready = epoll_wait(epoll_fd, events, MAX_EVENTS, -1);
+
+    if (num_ready == -1) {
+        if (errno == EINTR) continue;  // check shutdown_flag again
+        perror("epoll_wait");
+        break;
+    }
+
+    // We must process every event returned in this batch.
+    for (int i = 0; i < num_ready; i++) {
+        int ready_fd = events[i].data.fd;
+        uint32_t flags = events[i].events;
+
+        if (ready_fd == server_fd) {
+            // Accept pending connections until EAGAIN.
+            accept_clients(epoll_fd, server_fd);
+            continue;
+        }
+
+        auto it = clients.find(ready_fd);
+        if (it == clients.end()) continue;
+        Client& client = it->second;
+
+        // Read available data first.
+        if (flags & EPOLLIN) {
+            if (!handle_read(epoll_fd, client)) client.alive = false;
+        }
+
+        // Handle errors and disconnect notifications.
+        if (flags & (EPOLLERR | EPOLLHUP | EPOLLRDHUP)) client.alive = false;
+
+        // Send queued messages when the socket is writable.
+        if (client.alive && (flags & EPOLLOUT)) {
+            if (!handle_write(epoll_fd, client)) client.alive = false;
+        }
+
+        if (!client.alive) remove_client(epoll_fd, ready_fd);
+    }
+}`,
+        why: ["epoll_wait sleeps until at least one socket is ready, so the single thread never busy-waits. It returns a batch of ready sockets, and the for loop handles every one of them.",
+              "The listening socket sits in the same loop as the clients. When it is ready, accept_clients() keeps accepting until accept() reports EAGAIN, so connections that arrive together are all picked up.",
+              "Only this thread touches the clients map, so the epoll server needs no mutex, unlike the thread-per-client server.cpp.",
+              "A read error, a hang-up or a failed write all just set client.alive to false, and one check at the end calls remove_client(). Cleanup happens in one place."]},
+       {file: "server_epoll.cpp (client state, shortened)", lang: "cpp",
+        snippet: `struct Client {
+    int fd;
+    string username;
+
+    // Stores bytes received from the client.
+    // A message may arrive in multiple recv() calls.
+    vector<char> input_buffer;
+
+    // Stores messages waiting to be sent to this client.
+    deque<string> output_queue;
+
+    // Tracks how many bytes of the first queued packet were sent.
+    size_t output_offset = 0;
+
+    bool registered = false;
+    bool alive = true;
+};
+
+bool update_epoll_interest(int epoll_fd, Client& client) {
+    epoll_event event{};
+    event.data.fd = client.fd;
+    event.events = EPOLLIN | EPOLLRDHUP;
+
+    // EPOLLOUT is enabled only when there is data waiting to be sent.
+    // Otherwise, writable sockets could cause unnecessary event notifications.
+    if (!client.output_queue.empty()) {
+        event.events |= EPOLLOUT;
+    }
+
+    return epoll_ctl(epoll_fd, EPOLL_CTL_MOD, client.fd, &event) != -1;
+}`,
+        why: ["TCP is a stream, so one message can arrive across several recv() calls. input_buffer keeps the bytes until a whole message is there.",
+              "Messages waiting to go out sit in output_queue, and output_offset records how much of the first one was already sent, so a partial send carries on where it stopped.",
+              "A socket with free buffer space is writable almost all the time, so asking epoll about EPOLLOUT constantly would wake the loop for no reason. The server switches it on only while the queue has something to send."]}
+     ]},
+    {title: "CryptoLab", url: "https://github.com/i7griffin/CryptoLab", status: "active",
+     text: "Classical and modern ciphers written by hand in C++ and Java, from Caesar and Hill to DES and AES, as small menu-driven programs.",
+     tags: ["C++", "Java", "Cryptography", "DES", "AES"],
+     notes: [
+       {h: "What it is", t: "A collection of cipher implementations written by hand rather than with a crypto library. The classical set has Caesar, Vigenere, Affine, Hill, Playfair (in Java) and the one-time pad (Vernam). The modern set has DES and AES."},
+       {h: "The modern ciphers", t: "DES is built from its real parts: the permutations, expansion, S-boxes, P-box, a 16-round key schedule and the Feistel round. AES has the S-box and inverse S-box, ShiftRows, MixColumns in a finite field, key expansion, and both the encrypt and decrypt rounds."},
+       {h: "How the programs work", t: "Each program asks for a message and a key, then prints the encrypted or decrypted text. The DES program has a simple menu for encryption, decryption and exit."}
+     ],
+     code: [
+       {file: "fiestalAES.h (MixColumns math)", lang: "cpp",
+        snippet: `// MULTIPLY BY 2 IN GF(2^8)
+uint8_t xtime(uint8_t value)
+{
+    uint8_t result = value << 1;
+
+    if(value & 0x80)
+    result ^= 0x1B;
+
+    return result;
+}
+
+// GENERAL GF(2^8) MULTIPLICATION
+uint8_t galoisMultiply(uint8_t a, uint8_t b)
+{
+    uint8_t result = 0;
+
+    while(b)
+    {
+        if(b & 1)
+            result ^= a;
+
+        a = xtime(a);
+        b >>= 1;
+    }
+
+    return result;
+}
+
+//mix column operation
+void mixColumns(uint8_t state[4][4])
+{
+    for(int col = 0; col < 4; col++)
+    {
+        uint8_t a0 = state[0][col];
+        uint8_t a1 = state[1][col];
+        uint8_t a2 = state[2][col];
+        uint8_t a3 = state[3][col];
+
+        state[0][col] = galoisMultiply(a0, 2) ^ galoisMultiply(a1, 3) ^ a2 ^ a3;
+        state[1][col] = a0 ^ galoisMultiply(a1, 2) ^ galoisMultiply(a2, 3) ^ a3;
+        state[2][col] = a0 ^ a1 ^ galoisMultiply(a2, 2) ^ galoisMultiply(a3, 3);
+        state[3][col] = galoisMultiply(a0, 3) ^ a1 ^ a2 ^ galoisMultiply(a3, 2);
+    }
+}`,
+        why: ["AES does its arithmetic in a finite field, GF(2^8). Multiplying by 2 is a left shift, and if a bit fell off the top, XOR with 0x1B (the constant AES uses) keeps the answer inside 8 bits.",
+              "galoisMultiply builds any product out of repeated doubling, like binary multiplication: for every set bit in b it XORs in the current a, then doubles a.",
+              "mixColumns treats each column as four bytes and blends them using multiples of 2 and 3, so every output byte depends on all four input bytes."]},
+       {file: "Affine.cpp (decryption, shortened)", lang: "cpp",
+        snippet: `// mod 26 of a inverse exists only if the gcd of a with 26 is 1
+if (gcd(26, a) != 1)
+{
+    cout << "Not suitable value for a " << endl;
+    exit(EXIT_FAILURE);
+}
+
+int extendedEuclidean(int a, int b)
+{
+    int r0 = a;
+    int r1 = b;
+
+    int u0 = 1;
+    int u1 = 0;
+
+    int v0 = 0;
+    int v1 = 1;
+
+    int r2, v2, u2;
+
+    while (r1 != 0)
+    {
+        int q = r0 / r1;
+        r2 = r0 - q * r1;
+        r0 = r1;
+        r1 = r2;
+
+        v2 = v0 - q * v1;
+        v0 = v1;
+        v1 = v2;
+
+        u2 = u0 - q * u1;
+        u0 = u1;
+        u1 = u2;
+    }
+    // converting the inverse value of a to be positive if it is negative in any case
+    return (v0 % 26 + 26) % 26;
+}
+
+int a_inverse = extendedEuclidean(26, a);
+
+for (int i = 0; i < cryptoText.length(); ++i)
+{
+    int value = (((static_cast<int>(cryptoText[i]) - 65 - b + 26) * a_inverse) % 26) + 97;
+    cryptoText[i] = static_cast<char>(value);
+}`,
+        why: ["Undoing an Affine cipher means multiplying by the inverse of a modulo 26, and that inverse only exists when gcd(a, 26) is 1. The program checks this first and rejects any other value of a.",
+              "extendedEuclidean finds the inverse by running Euclid's algorithm while tracking the coefficients. The last line turns a possibly negative result into a value from 0 to 25.",
+              "Decryption subtracts b, multiplies by a_inverse and reduces modulo 26. The + 26 keeps the number from going negative before the % is applied."]}
+     ]}
+  ],
+  ctf: {
+    achievements: [
+      {d: "2025", t: "RMK Hackathon 2025", r: "finalist", x: "Recognized as a finalist while serving as Computer Club Secretary at school."},
+      {t: "OverTheWire Bandit", r: "wargame", x: "Linux command-line wargame. My full walkthrough is on GitHub.", url: "https://github.com/i7griffin/overthewire-bandit-writeup"},
+      {t: "TryHackMe", r: "platform", x: "Hands-on rooms for practising security skills."},
+      {t: "PortSwigger Web Security Academy", r: "platform", x: "Free web security labs."}
+    ],
+    writeups: [
+      {title: "OverTheWire Bandit writeup", url: "https://github.com/i7griffin/overthewire-bandit-writeup", status: "wargame",
+       text: "Walkthrough notes and screenshots from the OverTheWire Bandit wargame, plus extra notes on SSH brute-force tools, wordlists and daemons.",
+       tags: ["Linux", "Wargames"],
+       notes: [
+         {h: "What it is", t: "My notes and screenshots from OverTheWire Bandit, a wargame that teaches Linux command-line basics and simple security ideas level by level."},
+         {h: "What's inside", t: "Screenshots for the early levels, a second set from level 15 onward, a detailed explanation of level 26, and an ADDITIONALS folder with notes on Nmap, Metasploit and Hydra for SSH brute-force testing, Crunch wordlists and daemons."}
+       ],
+       images: [{src: "images/bandit-walkthrough.png", caption: "A level walkthrough screenshot"}],
+       code: [{file: "level26 (from my notes)", lang: "sh",
+         snippet: `# The account's login shell is not bash:
+bandit26:x:11026:11026::/home/bandit26:/usr/bin/showtext
+
+# 1. Shrink the terminal window so \`more\` has to pause
+# 2. Press v inside more to open the file in vi
+# 3. From vi, start a real shell:
+:set shell=/bin/bash
+:shell`,
+         why: ["The login shell /usr/bin/showtext is a tiny script that runs more on a text file and exits, which is why every shell attempt got kicked straight out.",
+               "more only waits for input when the file does not fit on screen, so a very small terminal makes it pause instead of exiting.",
+               "Pressing v inside more opens the file in vi, and vi can start its own shell. Setting shell=/bin/bash first stops vi from launching showtext again."]}]}
+    ]
+  },
+  jobs: [
+    {role: "Junior Core Member, Cyber Vertical", org: "SNUC Coding Club", dates: "Aug 2026 - Present",
+     text: "Core team member of the cyber vertical at the coding club, working from Chennai, Tamil Nadu (hybrid)."}
+  ],
+  education: [{d: "2025 - 2029", t: "B.Tech in Computer Science and Engineering (Cybersecurity)", r: "Shiv Nadar University Chennai", x: "Expected graduation 2029."},
+    {d: "Apr 2023 - May 2025", t: "High School Diploma", r: "Loyola International Residential School", x: "Computer Club Secretary. Finalist at the RMK Hackathon 2025."}],
+  certs: [{d: "Jul 2025", t: "Google Cybersecurity Professional Certificate V2", r: "Coursera", x: "Covered network security and the Linux command line, plus Python and SQL."}],
+  notes: [], /* add posts like {d: "2026-10-01", t: "Post title", r: "read", x: "One-line summary.", url: "https://..."} and the Notes section appears */
+  links: [
+    ["github", "https://github.com/i7griffin"],
+    ["linkedin", "https://www.linkedin.com/in/maria-griffin-raj-i-4ab969330/"],
+    ["email", "mailto:mariagriffinraj.i@gmail.com"]
+  ]
+};
+/* ===== END EDIT BLOCK ===== */
+
+const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 document.title = SITE.name + " | Systems & Security";
 $("yr").textContent = new Date().getFullYear();
 
-$("projectGrid").innerHTML = SITE.projects.map(p =>
-  `<a class="card" href="${esc(p.url)}" target="_blank" rel="noopener">
-    <div class="bar"><span>~/${esc(slug(p.title))}</span><em>${esc(p.status || "")}</em></div>
+const cards = (list, dir) => list.map(p =>
+  `<a class="card" href="#/${dir}/${esc(slug(p.title))}">
+    <div class="bar"><span>~/${dir}/${esc(slug(p.title))}</span><em>${esc(p.status || "")}</em></div>
     <div class="body"><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p>
     <div class="tags">${p.tags.map(t => `<span>#${esc(t)}</span>`).join("")}</div></div></a>`).join("");
+const rows = list => list.map(r => {
+  const a = !!r.url, tag = a ? "a" : "div", at = a ? ` href="${esc(r.url)}" target="_blank" rel="noopener"` : "";
+  return `<${tag} class="row"${at}><span class="d">${esc(r.d || "")}</span><span class="t">${esc(r.t)}</span><span class="r">${esc(r.r || "")}</span>${r.x ? `<span class="x">${esc(r.x)}</span>` : ""}</${tag}>`;
+}).join("");
+$("projectGrid").innerHTML = cards(SITE.projects, "projects");
+$("ctfGrid").innerHTML = cards(SITE.ctf.writeups, "writeups");
+$("ctfWins").innerHTML = rows(SITE.ctf.achievements);
+$("bio").innerHTML = SITE.about.bio.map(t => `<p>${esc(t)}</p>`).join("");
+$("skills").innerHTML = SITE.about.skills.map(g => `<div class="skill"><h3>${esc(g.name)}</h3><div class="chips">${g.items.map(i => `<span>${esc(i)}</span>`).join("")}</div></div>`).join("");
+$("eduList").innerHTML = rows(SITE.education);
+$("certList").innerHTML = rows(SITE.certs);
+$("noteList").innerHTML = rows(SITE.notes);
+/* Hide any list that has no entries, so visitors never see empty headings */
+["ctfWins", "ctfGrid", "jobList", "eduList", "certList"].forEach(id => {
+  const el = $(id); if (el.children.length) return;
+  const p = el.previousElementSibling; if (p && p.classList.contains("sub")) p.hidden = true; el.hidden = true;
+});
+if (!SITE.notes.length) { $("notes").remove(); document.querySelector('nav a[href="#notes"]').remove(); }
 $("jobList").innerHTML = SITE.jobs.map(j =>
   `<div class="entry"><time>${esc(j.dates)}</time><h3>${esc(j.role)}</h3><div class="org">${esc(j.org)}</div><p>${esc(j.text)}</p></div>`).join("");
 $("links").innerHTML = SITE.links.map(l => `<a href="${esc(l[1])}" target="_blank" rel="noopener">[${esc(l[0])}]</a>`).join("");
@@ -22,28 +685,319 @@ function type(el, text, speed) {
     const t = setInterval(() => { el.textContent = text.slice(0, ++i); if (i >= text.length) { clearInterval(t); done(); } }, speed);
   });
 }
+$("nameSr").textContent = SITE.name; $("taglineSr").textContent = SITE.tagline;
 type($("name"), SITE.name, 90).then(() => type($("tagline"), SITE.tagline, 22));
 
 /* Access level: guest -> user -> admin -> root as you explore */
 const seen = new Set();
 const levels = ["guest", "user", "admin", "root"];
+function setAccess() {
+  const c = seen.size, n = c >= 6 ? 3 : c >= 4 ? 2 : c >= 2 ? 1 : 0;
+  $("lvl").textContent = captured ? "root \u2605" : levels[n];
+  $("acc").classList.toggle("root", captured || n === 3);
+}
 function bump(key) {
-  if (seen.has(key)) return; seen.add(key);
-  const n = Math.min(seen.size, levels.length - 1);
-  $("lvl").textContent = levels[n];
-  $("acc").classList.toggle("root", n === levels.length - 1);
+  if (seen.has(key)) return; seen.add(key); setAccess();
 }
 const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && bump(e.target.id)), {threshold: .3});
 document.querySelectorAll("section").forEach(s => io.observe(s));
 document.querySelectorAll(".card").forEach((c, i) => c.addEventListener("click", () => bump("card" + i)));
+
+/* ---------- Matrix rain (matrix theme and Konami code) ---------- */
+const cv = $("rain"), cx = cv.getContext ? cv.getContext("2d") : null;
+const RAIN_CH = "01ABCDEF<>/{}[]#$%アイウエオカキクケコサシスセソ";
+let rainT = null, drops = [];
+function sizeRain() { cv.width = innerWidth; cv.height = innerHeight; drops = Array.from({length: Math.ceil(innerWidth / 16)}, () => Math.random() * -50); }
+function drawRain() {
+  cx.fillStyle = "rgba(7,11,18,.12)"; cx.fillRect(0, 0, cv.width, cv.height);
+  cx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--cyan") || "#3dff8a";
+  cx.font = "15px 'JetBrains Mono', monospace";
+  drops.forEach((y, i) => {
+    cx.fillText(RAIN_CH[Math.random() * RAIN_CH.length | 0], i * 16, y * 16);
+    drops[i] = y * 16 > cv.height && Math.random() > .975 ? 0 : y + 1;
+  });
+}
+function toggleRain(on) {
+  if (!cx || still) return;
+  if (on && !rainT) { cv.style.display = "block"; sizeRain(); rainT = setInterval(drawRain, 55); }
+  else if (!on && rainT) { clearInterval(rainT); rainT = null; cv.style.display = "none"; cx.clearRect(0, 0, cv.width, cv.height); }
+}
+addEventListener("resize", () => { if (rainT) sizeRain(); });
+
+/* ---------- Themes and hidden flag ---------- */
+const THEMES = {cyan: "#33e0f0", magenta: "#ff5ac8", amber: "#ffb547", ice: "#cfe3ff", matrix: "#3dff8a"};
+const store = {get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} }};
+let captured = store.get("flag") === "1", current = "cyan";
+const FLAG_ROT13 = "SYNT{lbh_sbhaq_gur_uvqqra_svyr}";
+const rot13 = s => s.replace(/[a-zA-Z]/g, c => String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26));
+function renderSwatches() {
+  $("swatches").innerHTML = Object.keys(THEMES).filter(n => n !== "matrix" || captured).map(n =>
+    `<button class="sw" type="button" data-t="${n}" aria-label="${n} theme" aria-pressed="${n === current}" style="background:${THEMES[n]}"></button>`).join("");
+  $("swatches").querySelectorAll(".sw").forEach(b => b.addEventListener("click", () => setTheme(b.dataset.t)));
+}
+function setTheme(n, save = true) {
+  if (!THEMES[n] || (n === "matrix" && !captured)) return false;
+  current = n; document.documentElement.style.setProperty("--cyan", THEMES[n]);
+  if (save) store.set("theme", n);
+  toggleRain(n === "matrix");
+  renderSwatches(); return true;
+}
+console.log("%cCurious? The terminal is hiding a file. Try: ls -a", "color:#33e0f0;font-family:monospace");
+if (store.get("theme")) setTheme(store.get("theme"), false); else renderSwatches();
+setAccess();
+
+/* ---------- Terminal ---------- */
+const term = $("tout"), tin = $("tin");
+const say = (t, cls) => { const d = document.createElement("div"); d.textContent = t; if (cls) d.className = cls; term.appendChild(d); term.scrollTop = term.scrollHeight; };
+const cmds = {
+  help: () => ["help, whoami, about, skills, projects, open <name>, ctf, experience, education, certs, contact, github, resume, stats, ls, cat <file>, theme <name>, clear"],
+  whoami: () => [SITE.name + ": " + SITE.tagline],
+  about: () => SITE.about.bio,
+  skills: () => SITE.about.skills.map(g => g.name + ": " + g.items.join(", ")),
+  projects: () => SITE.projects.map(p => slug(p.title) + "  [" + (p.status || "") + "]  " + p.tags.join(", ")).concat(["Type: open <name> to view a project page."]),
+  ctf: () => SITE.ctf.achievements.map(a => a.t + (a.r ? " (" + a.r + ")" : "")).concat(SITE.ctf.writeups.map(w => "writeup: " + slug(w.title))),
+  experience: () => SITE.jobs.map(j => j.dates + "  " + j.role + " @ " + j.org),
+  education: () => SITE.education.map(e => e.d + "  " + e.t + ", " + e.r),
+  certs: () => SITE.certs.map(c => (c.d ? c.d + "  " : "") + c.t + " (" + c.r + ")"),
+  contact: () => SITE.links.map(l => l[0] + ": " + l[1].replace(/^mailto:/, "")),
+  github: () => ["https://github.com/" + SITE.github],
+  resume: () => { downloadResume(); return ["Opening resume..."]; },
+  stats: () => ghSummary ? ghSummary : ["GitHub stats are not loaded yet."]
+};
+const FILES = {
+  "about.txt": () => SITE.about.bio, "skills.txt": () => cmds.skills(), "contact.txt": () => cmds.contact(),
+  ".secret": () => ["# nothing to see here... or is there?", "rot13: " + FLAG_ROT13, "Decode it, then run: submit <flag>"]
+};
+function run(v) {
+  const [c, ...a] = v.split(/\s+/), name = c.toLowerCase();
+  if (name === "clear") { term.innerHTML = ""; return; }
+  if (name === "sudo") { say("Nice try. This incident will be reported.", "er"); return; }
+  if (name === "ls") { say(Object.keys(FILES).filter(f => a.includes("-a") || f[0] !== ".").join("  ")); return; }
+  if (name === "cat") {
+    const f = a[0] || "";
+    if (Object.hasOwn(FILES, f)) FILES[f]().forEach(l => say(l)); else say("cat: " + f + ": No such file or directory", "er");
+    return;
+  }
+  if (name === "theme") {
+    const n = (a[0] || "").toLowerCase();
+    if (!n) { say("themes: " + Object.keys(THEMES).filter(t => t !== "matrix" || captured).join(", ") + "  (usage: theme <name>)"); return; }
+    if (n === "matrix" && !captured) { say("matrix: locked.", "er"); return; }
+    const ok = setTheme(n); say(ok ? "Theme set to " + n + "." : "Unknown theme: " + n, ok ? "" : "er"); return;
+  }
+  if (name === "submit") {
+    if (rot13(a[0] || "") !== FLAG_ROT13) { say("Incorrect flag.", "er"); return; }
+    if (captured) { say("Already captured. Nice work."); return; }
+    captured = true; store.set("flag", "1"); setAccess(); renderSwatches();
+    say("ACCESS GRANTED. Flag captured. You now have root access, and a new theme is unlocked: theme matrix"); return;
+  }
+  if (name === "open") {
+    const q = (a[0] || "").toLowerCase();
+    for (const [d, l] of [["projects", SITE.projects], ["writeups", SITE.ctf.writeups]]) {
+      const p = q && l.find(x => slug(x.title).startsWith(q));
+      if (p) { say("Opening " + p.title + "..."); location.hash = "#/" + d + "/" + slug(p.title); return; }
+    }
+    say("Usage: open <project-name>. Type projects to list them.", "er"); return;
+  }
+  if (Object.hasOwn(cmds, name)) cmds[name]().forEach(l => say(l));
+  else say('command not found: ' + c + '. Type "help".', "er");
+}
+const hist = []; let hi = 0;
+tin.addEventListener("keydown", e => {
+  if (e.key === "Enter") { const v = tin.value.trim(); tin.value = ""; if (!v) return; hist.push(v); hi = hist.length; say("$ " + v, "cm"); run(v); }
+  else if (e.key === "ArrowUp" && hi > 0) { hi--; tin.value = hist[hi]; e.preventDefault(); }
+  else if (e.key === "Tab") {
+    const v = tin.value.toLowerCase();
+    if (v && !v.includes(" ")) {
+      const opts = Object.keys(cmds).concat(["open", "ls", "cat", "theme", "clear"]).filter(c => c.startsWith(v));
+      if (opts.length === 1) { tin.value = opts[0] + " "; e.preventDefault(); }
+    }
+  }
+  else if (e.key === "ArrowDown" && hi < hist.length) { hi++; tin.value = hist[hi] || ""; e.preventDefault(); }
+});
+$("termbox").addEventListener("click", () => tin.focus());
+say('Welcome. Type "help" to see the commands.');
+
+/* ---------- Resume (generated from SITE data, saved as PDF via the print dialog) ---------- */
+function buildResume() {
+  const S = SITE, p = t => `<p>${esc(t)}</p>`;
+  $("resume").innerHTML = `<h1>${esc(S.name)}</h1>${p(S.tagline)}${p(S.links.map(l => l[1].replace(/^mailto:/, "")).join(" | "))}
+  <h2>About</h2>${S.about.bio.map(p).join("")}
+  <h2>Skills</h2>${S.about.skills.map(g => `<p><b>${esc(g.name)}:</b> ${esc(g.items.join(", "))}</p>`).join("")}
+  <h2>Projects</h2>${S.projects.map(x => `<p><b>${esc(x.title)}</b> - ${esc(x.text)} (${esc(x.url)})</p>`).join("")}
+  <h2>Experience</h2>${S.jobs.map(j => `<p><b>${esc(j.role)}</b>, ${esc(j.org)} (${esc(j.dates)})</p>${p(j.text)}`).join("")}
+  <h2>Education</h2>${S.education.map(e => `<p><b>${esc(e.t)}</b>, ${esc(e.r)} (${esc(e.d)})</p>${e.x ? p(e.x) : ""}`).join("")}
+  <h2>Certifications</h2>${S.certs.map(c => `<p><b>${esc(c.t)}</b>, ${esc(c.r)} ${esc(c.d)}</p>`).join("")}`;
+}
+function downloadResume() {
+  if (SITE.resumeFile) { window.open(SITE.resumeFile, "_blank"); return; }
+  buildResume(); window.print();
+}
+$("cv").addEventListener("click", downloadResume);
+
+/* ---------- Contact form: opens your email app unless SITE.formAction is set ---------- */
+const form = document.querySelector("#contact form");
+if (SITE.formAction) { form.action = SITE.formAction; form.method = "POST"; }
+else form.addEventListener("submit", e => {
+  e.preventDefault();
+  const f = new FormData(form);
+  location.href = "mailto:" + SITE.email + "?subject=" + encodeURIComponent("Portfolio message from " + f.get("name")) +
+    "&body=" + encodeURIComponent(f.get("message") + "\n\nFrom: " + f.get("name") + " (" + f.get("email") + ")");
+});
+
+/* ---------- Auto-updating repo list from the GitHub API ---------- */
+function ghGet(path, map) {
+  const key = "gh:" + path, c = store.get(key);
+  if (c) { try { const o = JSON.parse(c); if (Date.now() - o.t < 18e5) return Promise.resolve(o.d); } catch (e) {} }
+  return fetch("https://api.github.com" + path).then(r => r.ok ? r.json() : Promise.reject())
+    .then(d => { const m = map ? d.map(map) : d; store.set(key, JSON.stringify({t: Date.now(), d: m})); return m; });
+}
+const slimRepo = r => ({name: r.name, html_url: r.html_url, fork: r.fork, language: r.language, description: r.description, pushed_at: r.pushed_at});
+const SNAP = {"generated":"2026-09-24","repoCount":11,"days":{"2026-08-25":3,"2026-08-27":2,"2026-08-31":1,"2026-09-12":3,"2026-09-13":2,"2026-09-17":1,"2026-09-19":1,"2026-09-21":2},"recent":[{"type":"PushEvent","created_at":"2026-09-21T04:14:54Z","repo":"i7griffin/CryptoLab"},{"type":"PushEvent","created_at":"2026-09-21T03:44:20Z","repo":"i7griffin/CryptoLab"},{"type":"PushEvent","created_at":"2026-09-19T05:37:44Z","repo":"i7griffin/Multi-Client-Chat-Server-"},{"type":"PushEvent","created_at":"2026-09-17T06:42:24Z","repo":"i7griffin/Multi-Client-Chat-Server-"},{"type":"PushEvent","created_at":"2026-09-13T10:29:58Z","repo":"i7griffin/Multi-Client-Chat-Server-"}],"repos":[{"name":"CryptoLab","html_url":"https://github.com/i7griffin/CryptoLab","fork":false,"language":"C++","description":"","pushed_at":""},{"name":"Multi-Client-Chat-Server-","html_url":"https://github.com/i7griffin/Multi-Client-Chat-Server-","fork":false,"language":"C++","description":"","pushed_at":""},{"name":"mini-siem","html_url":"https://github.com/i7griffin/mini-siem","fork":false,"language":"Python","description":"","pushed_at":""},{"name":"overthewire-bandit-writeup","html_url":"https://github.com/i7griffin/overthewire-bandit-writeup","fork":false,"language":null,"description":"","pushed_at":""}]};
+const dkey = d => d.toLocaleDateString("en-CA");
+const slimEvent = e => ({type: e.type, created_at: e.created_at, repo: e.repo.name});
+/* Data layers: 1) activity.json (refreshed daily by a GitHub Action, full year)  2) live GitHub API (90 days)  3) built-in snapshot */
+function loadData() {
+  const local = fetch("activity.json", {cache: "no-cache"}).then(r => r.ok ? r.json() : Promise.reject())
+    .then(j => ({counts: j.days, weeks: 53, recent: j.recent, repos: j.repos, note: "Contributions over the last year. Updated daily (" + String(j.generated).slice(0, 10) + ")."}));
+  const live = () => Promise.all([
+    ghGet(`/users/${SITE.github}/events/public?per_page=100&page=1`, slimEvent),
+    ghGet(`/users/${SITE.github}/events/public?per_page=100&page=2`, slimEvent).catch(() => []),
+    ghGet(`/users/${SITE.github}/events/public?per_page=100&page=3`, slimEvent).catch(() => []),
+    ghGet(`/users/${SITE.github}/repos?sort=updated&per_page=100`, slimRepo)
+  ]).then(([a, b, c, repos]) => {
+    const ev = a.concat(b, c), counts = {};
+    ev.forEach(e => { const k = dkey(new Date(e.created_at)); counts[k] = (counts[k] || 0) + 1; });
+    return {counts, weeks: 13, recent: ev.slice(0, 5), repos, note: "Public activity from the last 90 days."};
+  });
+  const snap = () => ({counts: SNAP.days, weeks: 13, recent: SNAP.recent, repos: SNAP.repos, repoCount: SNAP.repoCount, note: "Snapshot from " + SNAP.generated + ". Live data is unavailable right now."});
+  return local.catch(live).catch(snap);
+}
+const emptyRow = t => `<div class="row"><span class="x wide">${t}</span></div>`;
+const dataP = loadData();
+const reposP = dataP.then(d => d.repos);
+reposP
+  .then(list => {
+    const feat = SITE.projects.concat(SITE.ctf.writeups).map(x => x.url.toLowerCase());
+    const skip = [SITE.github.toLowerCase(), (SITE.github + ".github.io").toLowerCase()];
+    const rest = list.filter(r => !r.fork && !skip.includes(r.name.toLowerCase()) && !feat.includes(r.html_url.toLowerCase()));
+    $("repoList").innerHTML = rest.length
+      ? rows(rest.map(r => ({d: (r.pushed_at || "").slice(0, 10), t: r.name, r: r.language || "", x: r.description || "", url: r.html_url})))
+      : emptyRow(`More projects are on <a href="https://github.com/${esc(SITE.github)}" target="_blank" rel="noopener">github.com/${esc(SITE.github)}</a>.`);
+  })
+  .catch(() => { $("repoList").innerHTML = emptyRow(`Repository list unavailable right now. See <a href="https://github.com/${esc(SITE.github)}" target="_blank" rel="noopener">github.com/${esc(SITE.github)}</a>.`); });
+
+/* ---------- Code excerpts: tiny syntax highlighter ---------- */
+const STR = String.raw`("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*')`;
+const mk = (cm, kws) => new RegExp("(" + cm + ")|" + STR + String.raw`|\b(\d+(?:\.\d+)?)\b|\b(` + kws.split(" ").join("|") + String.raw`)\b|\b([A-Za-z_]\w*)(?=\()`, "gm");
+const RX = {
+  cpp: mk(String.raw`\/\/[^\n]*|\/\*[\s\S]*?\*\/|^[ \t]*#[^\n]*`, "int char void struct const auto while for if else return break continue true false nullptr bool size_t ssize_t static class using namespace unsigned long new delete"),
+  py: mk(String.raw`#[^\n]*`, "def class if elif else for while return import from in not and or is None True False with as try except raise lambda yield pass"),
+  sh: mk(String.raw`#[^\n]*`, "if then else fi for do done while case esac function in")
+};
+function hl(code, lang) {
+  const re = RX[lang]; if (!re) return esc(code);
+  re.lastIndex = 0; let out = "", last = 0, m;
+  while ((m = re.exec(code))) {
+    const c = m[1] !== undefined ? (lang === "cpp" && m[1].trimStart().startsWith("#") ? "p" : "c") : m[2] !== undefined ? "s" : m[3] !== undefined ? "n" : m[4] !== undefined ? "k" : "f";
+    out += esc(code.slice(last, m.index)) + `<span class="t${c}">${esc(m[0])}</span>`; last = re.lastIndex;
+    if (m[0] === "") re.lastIndex++;
+  }
+  return out + esc(code.slice(last));
+}
+const codeBlock = c => `<figure class="code"><div class="cbar"><span>${esc(c.file)}</span>${c.sample ? '<em title="Placeholder example. Replace it with code from your own repo.">sample</em>' : ""}<button class="copy" type="button">copy</button></div><pre><code>${hl(c.snippet, c.lang)}</code></pre><div class="why"><b>Why it works this way</b><ul>${c.why.map(w => `<li>${esc(w)}</li>`).join("")}</ul></div></figure>`;
+
+/* ---------- Project pages (hash routing: #/projects/name) ---------- */
+function showDetail(dir, sl) {
+  const p = (dir === "writeups" ? SITE.ctf.writeups : SITE.projects).find(x => slug(x.title) === sl);
+  if (!p) return false;
+  const codes = (p.code || []).filter(c => SITE.showSamples || !c.sample);
+  const back = dir === "writeups" ? "ctf" : "projects";
+  $("detail").innerHTML = `<div class="dpage">
+    <a class="btn back" href="#${back}">&larr; back</a>
+    <div class="cmd dcmd"><i>$</i> cat ~/${dir}/${esc(sl)}/README.md</div>
+    <h1>${esc(p.title)}</h1>
+    <div class="chips"><span>${esc(p.status || "")}</span>${p.tags.map(t => `<span>#${esc(t)}</span>`).join("")}</div>
+    <p class="lead">${esc(p.text)}</p>
+    ${(p.notes || []).map(n => `<h3 class="sub">${esc(n.h)}</h3><p>${esc(n.t)}</p>`).join("")}
+    ${codes.length ? `<h3 class="sub">Code excerpt</h3>` + codes.map(codeBlock).join("") : ""}
+    ${(p.images || []).map(i => `<figure><img src="${esc(i.src)}" alt="${esc(i.caption || p.title)}" loading="lazy"><figcaption>${esc(i.caption || "")}</figcaption></figure>`).join("")}
+    <p class="dfoot"><a class="btn main" href="${esc(p.url)}" target="_blank" rel="noopener">View on GitHub &rarr;</a></p></div>`;
+  /* screenshots you have not uploaded yet simply do not appear */
+  $("detail").querySelectorAll("img").forEach(img => img.addEventListener("error", () => { const f = img.closest("figure"); if (f) f.remove(); }));
+  document.title = p.title + " | " + SITE.name;
+  $("detail").querySelectorAll(".copy").forEach((b, i) => b.addEventListener("click", () => {
+    if (navigator.clipboard) navigator.clipboard.writeText(codes[i].snippet).then(() => { b.textContent = "copied"; }).catch(() => { b.textContent = "select and copy"; });
+    else b.textContent = "select and copy";
+  }));
+  return true;
+}
+function route() {
+  const m = location.hash.match(/^#\/(projects|writeups)\/([\w-]+)$/);
+  if (m && showDetail(m[1], m[2])) { $("home").hidden = true; $("detail").hidden = false; scrollTo({top: 0, behavior: "instant"}); bump("detail"); const hd = $("detail").querySelector("h1"); hd.tabIndex = -1; hd.focus({preventScroll: true}); return; }
+  $("detail").hidden = true; $("home").hidden = false;
+  document.title = SITE.name + " | Systems & Security";
+  const t = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+  if (t) t.scrollIntoView();
+}
+addEventListener("hashchange", route);
+route();
+
+/* ---------- Konami code easter egg ---------- */
+const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+let kpos = 0;
+addEventListener("keydown", e => {
+  if (/INPUT|TEXTAREA/.test(e.target.tagName)) return;
+  const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+  kpos = k === KONAMI[kpos] ? kpos + 1 : (k === KONAMI[0] ? 1 : 0);
+  if (kpos < KONAMI.length) return;
+  kpos = 0;
+  const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status");
+  t.textContent = "KONAMI: cheat code accepted. +30 lives.";
+  document.body.appendChild(t);
+  toggleRain(true);
+  setTimeout(() => { t.remove(); if (current !== "matrix") toggleRain(false); }, 8000);
+});
+
+/* ---------- Optional visitor counter (GoatCounter: no cookies) ---------- */
+if (SITE.goatcounter) {
+  const s = document.createElement("script");
+  s.async = true; s.src = "https://gc.zgo.at/count.js";
+  s.dataset.goatcounter = "https://" + SITE.goatcounter + ".goatcounter.com/count";
+  document.head.appendChild(s);
+}
+
+/* ---------- GitHub activity graph ---------- */
+let ghSummary = null;
+const ago = iso => { const s = (Date.now() - new Date(iso)) / 1000; return s < 3600 ? Math.max(1, Math.round(s / 60)) + " min ago" : s < 86400 ? Math.round(s / 3600) + " h ago" : Math.round(s / 86400) + " d ago"; };
+const EVT = {PushEvent: "Pushed to", CreateEvent: "Created in", WatchEvent: "Starred", ForkEvent: "Forked", IssuesEvent: "Issue in", PullRequestEvent: "Pull request in", IssueCommentEvent: "Commented in", DeleteEvent: "Deleted in"};
+function renderActivity(d) {
+  const counts = d.counts, WEEKS = d.weeks, year = WEEKS === 53;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const start = new Date(today); start.setDate(today.getDate() - (WEEKS * 7 - 1)); start.setDate(start.getDate() - start.getDay());
+  const days = []; for (let x = new Date(start); x <= today; x.setDate(x.getDate() + 1)) days.push(new Date(x));
+  const max = Math.max(1, ...days.map(x => counts[dkey(x)] || 0));
+  $("heat").innerHTML = days.map(x => { const c = counts[dkey(x)] || 0; return `<span class="cell l${c ? Math.ceil(c / max * 4) : 0}" title="${c} ${year ? "contribution" : "public event"}${c === 1 ? "" : "s"} on ${dkey(x)}"></span>`; }).join("");
+  $("heat").setAttribute("aria-label", "Public GitHub activity over the last " + WEEKS + " weeks");
+  const hw = document.querySelector(".heatwrap"); hw.scrollLeft = hw.scrollWidth;
+  const inWin = days.filter(x => counts[dkey(x)]).length;
+  const total = days.reduce((n, x) => n + (counts[dkey(x)] || 0), 0);
+  let streak = 0; const cur = new Date(today);
+  if (!counts[dkey(cur)]) cur.setDate(cur.getDate() - 1);
+  while (counts[dkey(cur)]) { streak++; cur.setDate(cur.getDate() - 1); }
+  const own = d.repos.filter(r => !r.fork), repoN = d.repoCount || own.length;
+  const stat = (n, l) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`;
+  const totalLabel = year ? "contributions, last year" : "public events, last 90 days";
+  $("ghStats").innerHTML = stat(repoN, "public repositories") + stat(total, totalLabel) + stat(inWin, "active days") + stat(streak, "day current streak");
+  $("actNote").textContent = d.note + " Darker squares mean more activity that day.";
+  const langs = {}; own.filter(r => r.language).forEach(r => langs[r.language] = (langs[r.language] || 0) + 1);
+  const n = Object.values(langs).reduce((a, b) => a + b, 0) || 1;
+  $("langs").innerHTML = Object.entries(langs).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([l, c]) =>
+    `<div class="lang"><span>${esc(l)}</span><span class="bar2"><i style="width:${Math.round(c / n * 100)}%"></i></span><b>${Math.round(c / n * 100)}%</b></div>`).join("") || '<p class="note">No language data yet.</p>';
+  $("recent").innerHTML = d.recent.length ? rows(d.recent.slice(0, 5).map(e => ({d: ago(e.created_at), t: (EVT[e.type] || "Activity in") + " " + e.repo.split("/")[1], url: "https://github.com/" + e.repo}))) : emptyRow("No recent public activity.");
+  ghSummary = [repoN + " public repositories", total + " " + totalLabel, inWin + " active days", streak + " day current streak"];
+}
+$("ghLink").href = "https://github.com/" + SITE.github;
+dataP.then(renderActivity).catch(() => { $("ghStats").innerHTML = `<div class="stat"><span>GitHub activity is unavailable right now. See <a href="https://github.com/${esc(SITE.github)}" target="_blank" rel="noopener">github.com/${esc(SITE.github)}</a>.</span></div>`; });
 </script>
 </body>
-</html>label{display:grid;gap:4px;font-size:.82rem;color:var(--mute)}
-.card p{margin:0;color:var(--mute);font-size:.88rem}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:8px;font-size:.76rem;color:var(--cyan)}
-.log{border-left:1px solid var(--line);margin-left:6px}
-.entry{padding:0 0 30px 26px;position:relative}
-.card .bar em{font-style:normal;color:var(--cyan)}
-.card .body{padding:18px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
-.card{background:var(--panel);border:1px solid var(--line);text-decoration:none;color:var(--ink);display:flex;flex-direction:column}
-
+</html>
