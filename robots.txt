@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://griffin.github.io/sitemap.xml
+Sitemap: https://i7griffin.github.io/sitemap.xml
