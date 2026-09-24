@@ -1,0 +1,6 @@
+# Security contact for i7griffin.github.io
+# This is a static portfolio site. Please report any issue by email.
+Contact: mailto:mariagriffinraj.i@gmail.com
+Expires: 2027-09-01T00:00:00.000Z
+Preferred-Languages: en, ta
+Canonical: https://i7griffin.github.io/.well-known/security.txt

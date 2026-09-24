@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark">
+<title>404 | command not found</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b12'/%3E%3Crect x='3' y='3' width='58' height='58' fill='none' stroke='%2333e0f0' stroke-width='3'/%3E%3Ctext x='32' y='47' font-size='38' text-anchor='middle' fill='%2333e0f0' font-family='monospace' font-weight='bold'%3EG%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#070b12;--ink:#d3e2f0;--mute:#7b8ea6;--line:#1c2a3d;--cyan:#33e0f0;--red:#ff4d7d}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;background:var(--bg);color:var(--ink);font:400 .98rem/1.7 "JetBrains Mono",ui-monospace,monospace;
+ background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:48px 48px}
+main{max-width:720px;margin:0 auto;padding:48px 24px;background:rgba(7,11,18,.9)}
+i{color:var(--cyan);font-style:normal}
+.m{color:var(--mute)}.er{color:var(--red)}
+h1{font:700 clamp(4rem,20vw,9rem)/1 "Chakra Petch",sans-serif;margin:24px 0 4px}
+a{color:var(--cyan)}
+.ls{margin-top:28px}
+.btn{display:inline-block;margin-top:24px;padding:10px 20px;border:1px solid var(--cyan);text-decoration:none}
+.btn:hover{background:var(--cyan);color:var(--bg)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+</style>
+</head>
+<body>
+<main>
+  <div><i>$</i> cd <span id="p">/</span></div>
+  <div class="er">bash: cd: <span id="p2">/</span>: No such file or directory</div>
+  <h1>404</h1>
+  <div class="m">command not found. This page does not exist or has moved.</div>
+  <p class="ls"><i>$</i> ls ~<br>
+    <a href="/#about">about</a>&nbsp; <a href="/#projects">projects</a>&nbsp; <a href="/#ctf">ctf</a>&nbsp; <a href="/#experience">experience</a>&nbsp; <a href="/#notes">notes</a>&nbsp; <a href="/#contact">contact</a></p>
+  <a class="btn" href="/">cd ~</a>
+</main>
+<script>
+var p = location.pathname || "/";
+document.getElementById("p").textContent = p;
+document.getElementById("p2").textContent = p;
+</script>
+</body>
+</html>
